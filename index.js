@@ -121,12 +121,12 @@ function addVercelMetadata(key, value, providedArgs) {
 
 
 /**
- * 
+ *
  * The following regex is used to split the vercelArgs string into an array of arguments.
  * It conserves strings wrapped in simple / double quotes, with nested different quotes, as a single argument.
- * 
+ *
  * Example:
- * 
+ *
  * parseArgs(`--env foo=bar "foo=bar baz" 'foo="bar baz"'`) => ['--env', 'foo=bar', 'foo=bar baz', 'foo="bar baz"']
  */
 function parseArgs(s) {
@@ -428,8 +428,11 @@ async function run() {
 
   const deploymentUrl = await vercelDeploy(ref, commit);
 
+
   if (deploymentUrl) {
     core.info('set preview-url output');
+
+    core.setOutput('generated-url', deploymentUrl);
     if (aliasDomains && aliasDomains.length) {
       core.info('set preview-url output as first alias');
       core.setOutput('preview-url', `https://${aliasDomains[0]}`);
